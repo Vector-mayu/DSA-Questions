@@ -9,9 +9,9 @@ public:
 
         //Node
         TreeNode *root = new TreeNode(preorder[index++]);
-        //Left
+        //Left Node 
         root->left = BST(preorder, index, lower, root->val);
-        //Right
+        //Right Node
         root->right = BST(preorder,index,root->val, upper);
 
         return root;
