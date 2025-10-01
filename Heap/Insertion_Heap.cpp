@@ -1,52 +1,56 @@
-#include <iostream>
-#include <vector>
+#include<iostream>
 using namespace std;
 
-class MaxHeap {
-    vector<int> heap;
+class MaxHeap
+{
+	int *arr;
+	int size; // Total Elements in Heap
+	int total_size; // Total Size of Array
 
-    // Helper function to get parent index
-    int parent(int i) { return (i - 1) / 2; }
+	public:
+	MaxHeap(int n)
+	{
+		arr = new int[n];
+		size = 0;
+		total_size = n;
+	}
 
-    // Swap values at two indices
-    void swap(int &a, int &b) {
-        int temp = a;
-        a = b;
-        b = temp;
-    }
+	void Insert(int val)
+	{
+		if(size == total_size)
+		{
+			cout<<"Heap OverFlow\n";
+			return;
+		}
+		
+		arr[size] = val;
+		int index = size;
+		size++;
 
-public:
-    // Insert a new value into the heap
-    void insert(int val) {
-        heap.push_back(val); // Step 1: Add at the end
-        int i = heap.size() - 1;
+		// Compare it with Parents
+		while(index > 0 && arr[(index-1)/2] < arr[index] ) // Here a child finds the parent Formu
+		{
+			swap(arr[index], arr[(index-1)/2]);
+			index = (index-1)/2;
+		} 
+		
+		cout<<arr[index]<<" Inserted in Heap"<<endl;
+	}
 
-        // Step 2: Bubble up (heapify up)
-        while (i != 0 && heap[parent(i)] < heap[i]) {
-            swap(heap[parent(i)], heap[i]);
-            i = parent(i);
-        }
-    }
-
-    // Print heap elements
-    void printHeap() {
-        for (int i = 0; i < heap.size(); i++)
-            cout << heap[i] << " ";
-        cout << endl;
-    }
+	void display()
+	{
+		for(int i=0; i<size; i++)
+		{
+			cout<<arr[i]<<" ";
+		}
+	}
 };
 
-int main() {
-    MaxHeap h;
-
-    h.insert(10);
-    h.insert(20);
-    h.insert(15);
-    h.insert(30);
-    h.insert(40);
-
-    cout << "Max Heap after insertions: ";
-    h.printHeap();
-
-    return 0;
+int main()
+{
+	MaxHeap h1(5);
+	h1.Insert(14);
+	h1.Insert(23);
+	h1.Insert(18);
+	h1.display();
 }
