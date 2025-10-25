@@ -1,13 +1,6 @@
 //  GFG Medium Problem 
   // Company :- DE Shaw
 
-// User function Template for C++
-
-/*struct Node {
-    int data;
-    Node *left, *right;
-};*/
-
 class Solution {
   public:
   
