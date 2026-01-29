@@ -22,7 +22,7 @@ public:
     }
 };
 
-// Approach 2 TC :- O(LogN)
+// Approach 2 TC :- O((n+k)logn)
 
 class Solution {
 public:
@@ -55,5 +55,23 @@ public:
             break;
         }
         return ans;
+    }
+};
+
+// Approach 3 :- O(n) 
+
+class Solution {
+public:
+
+    int findKthPositive(vector<int>& arr, int k) {
+        int missingNumber = k;
+        
+        for(int i=0; i<arr.size(); i++){
+            if(arr[i] > missingNumber)
+            return missingNumber;
+            else
+            missingNumber++;
+        }
+        return missingNumber;
     }
 };
