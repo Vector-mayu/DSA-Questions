@@ -1,4 +1,4 @@
-// UnWeighted Graph
+// UnWeighted UnDirected Graph
 
 #include<iostream>
 #include<vector>
@@ -27,7 +27,7 @@ int main()
     }
 }
 
-// Weighted Graph
+// Weighted UnDirected Graph
 
 #include<iostream>
 #include<vector>
@@ -53,5 +53,55 @@ int main()
             cout<<AdjMat[i][j]<<" ";
         }
 		cout<<endl;
+    }
+}
+
+// UnWeighted Directed Graph
+
+#include<iostream>
+using namespace std;
+
+int main(){
+    int vertex, edges;
+    cin>>vertex>>edges;
+
+    vector<vector<bool> >AdjMat(vertex, vector<bool>(vertex,0));
+
+    int u,v;
+    for(int i=0; i<edges; i++){
+        cin>>u>>v;
+        AdjMat[u][v]  = 1;
+    }
+
+    for(int i=0; i<vertex; i++){
+        for(int j=0; j<edges; j++){
+            count<<AdjMat[i][j]<<" ";
+        }
+        count<<endl;
+    }
+}
+
+// Weighted Directed Graph
+
+#include<iostream>
+using namespace std;
+
+int main(){
+    int vertex, edges;
+    cin>>vertex>>edges;
+
+    vector<vector<bool> >AdjMat(vertex, vector<bool>(vertex,0));
+
+    int u,v,val;
+    for(int i=0; i<edges; i++){
+        cin>>u>>v>>val;
+        AdjMat[u][v]  = val;
+    }
+
+    for(int i=0; i<vertex; i++){
+        for(int j=0; j<edges; j++){
+            count<<AdjMat[i][j]<<" ";
+        }
+        count<<endl;
     }
 }
