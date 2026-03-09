@@ -28,3 +28,37 @@ public:
         return totalWater;
     }
 };
+
+// Optimized O(N) single pass code
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int totalWater = 0;
+        int Lmax = 0, Rmax = 0;
+        int start = 0, end = n-1;
+
+        while(start < end){
+            if(height[start] > height[end]){
+                if(height[end] < Rmax){
+                    totalWater += Rmax - height[end];
+                }
+                else
+                Rmax = height[end];
+
+                end--;
+            }
+            else{
+                if(height[start] < Lmax){
+                    totalWater += Lmax - height[start];
+                }
+                else
+                Lmax = height[start];
+
+                start++;
+            }
+        }
+        return totalWater;
+    }
+};
