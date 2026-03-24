@@ -21,3 +21,33 @@ public:
         return maxLen;
     }
 };
+
+// Optimization with Sliding Window
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        bool freq[256] = {0};
+        int start = 0, end = 0;
+        int maxLen = 0;
+
+        while(end < n){
+            // Mark Freq vector as 0 untill there are duplicate chars in that window
+            // keep all unqiue chars in that window
+            // jab tak woh repeated char 0 na hoga tabh taak sabhko 0 karte jao
+            while(freq[s[end]]){
+                freq[s[start]] = 0;
+                start++;
+            }
+
+            // abh sabh unqiue chars he bache as we already aplied while loop to eliminate repeated chars
+            freq[s[end]] = 1;
+            end++;
+
+            maxLen = max(maxLen, (end - start));
+        }
+
+        return maxLen;
+    }
+};
