@@ -29,3 +29,41 @@ public:
         return ans;
     }
 };
+
+
+// Optimized Solution
+class Solution {
+public:
+
+    void solve(vector<int>&arr, int index, int n, vector<vector<int>>&ans){
+        //base case
+        if(index == n-1){
+            ans.push_back(arr);
+            return;
+        }
+
+        // vector to check if number came uniquely or not
+        vector<int>used(21,0);
+
+        for(int i=index; i<n; i++){
+            // this case rejects duplicates
+            if(!used[arr[i]+10]){
+                used[arr[i] + 10] = 1;
+
+                swap(arr[i], arr[index]);
+                solve(arr, index+1, n, ans);
+                swap(arr[i], arr[index]);
+            }
+        }
+
+    }
+
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        // Code here 
+        vector<vector<int>>ans;
+
+        solve(nums, 0, nums.size(), ans);
+
+        return ans;
+    }
+};
