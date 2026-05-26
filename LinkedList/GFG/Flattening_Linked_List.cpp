@@ -50,6 +50,7 @@ class Solution {
         Node *head = new Node(0);
         Node *tail = head;
         
+        // next part
         // merging both LL
         while(head1 && head2){
             if(head1->data <= head2->data){
