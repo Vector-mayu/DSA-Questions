@@ -1,47 +1,45 @@
 class Solution {
 public:
-    int largestRectangleArea(vector<int>& height) {
-
-        int index;
-        int ans = 0;
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
         stack<int>st;
-        int n = height.size();
+        vector<int>NSR(n);
+        vector<int>NSL(n,-1);
 
-        for(int i=0; i<n; i++)
-        {
-            while(!st.empty() && height[st.top()]>height[i])
-            {
-                index = st.top();
+        // lets find NSR
+        for(int i=0; i<n; i++){
+            while(!st.empty() && heights[st.top()] > heights[i]){
+                // we will simple push index in here
+                NSR[st.top()] = i;
                 st.pop();
-
-                if(!st.empty())
-                {
-                  ans = max(ans, height[index]*(i-st.top()-1));  
-                }
-                else
-                {
-                    ans = max(ans, height[index]*(i));
-                }
             }
             st.push(i);
         }
-
-        while(!st.empty())
-        {
-            index = st.top();
+        // if there are still elements in stack then assign them with n(cuz they dont have next smallest)
+        while(!st.empty()){
+            NSR[st.top()] = n;
             st.pop();
+        }
+        //now the stack is empty again 
 
-            if(!st.empty())
-            {
-                ans = max(ans, height[index]*(n-st.top()-1));
+        // lets make NSL now 
+        for(int i=n-1; i>=0; i--){
+            while(!st.empty() && heights[st.top()] > heights[i]){
+                // we will simply push index in here
+                NSL[st.top()] = i;
+                st.pop();
             }
-            else
-            {
-                ans = max(ans, height[index]*(n));
-            }
+            st.push(i);
+        }
+        // here we dont need as we move left max n would be = -1
+
+        // its formula time
+        int maxArea = 0;    
+        for(int i=0; i<n; i++){
+            maxArea = max(maxArea, (NSR[i] - NSL[i] -1) *heights[i]);
         }
 
-        return ans;
-        
+        return maxArea;
+
     }
 };
