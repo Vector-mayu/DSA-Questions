@@ -1,71 +1,73 @@
-class MyStack {
+class MyQueue {
 public:
-    queue<int>q1;
-    queue<int>q2;
-    MyStack() {
+    stack<int>rev;
+    stack<int>nor;
+    MyQueue() {
         
     }
     
     void push(int x) {
-        // if q1 is not empty then push in q1 
-        // else push in q2
-        if(q1.empty() && q2.empty()){
-            q1.push(x);
+        if(rev.empty() && nor.empty()){
+            rev.push(x);
         }
-        else if(!q1.empty()){
-            q1.push(x);
+        else if(!rev.empty()){
+            rev.push(x);
         }
         else{
-            q2.push(x);
+            while(!nor.empty()){
+                rev.push(nor.top());
+                nor.pop();
+            }
+            rev.push(x);
         }
     }
     
     int pop() {
-        if(q1.empty() && q2.empty()){
+        if(rev.empty() && nor.empty()){
             return -1;
         }
-        else if(!q1.empty()){
-            int target = q1.back();
-            while(q1.size() > 1){
-                q2.push(q1.front());
-                q1.pop();
+        else if(!rev.empty()){
+            while(rev.size() > 1){
+                nor.push(rev.top());
+                rev.pop();
             }
-            q1.pop();
+            int target = rev.top();
+            rev.pop();
             return target;
         }
         else{
-            int target = q2.back();
-            while(q2.size() > 1){
-                q1.push(q2.front());
-                q2.pop();
-            }
-            q2.pop();
+            int target = nor.top();
+            nor.pop();
             return target;
         }
     }
     
-    int top() {
-        if(!q1.empty()){
-            return q1.back();
+    int peek() {
+        if(rev.empty() && nor.empty()){
+            return -1;
         }
-        else if(!q2.empty()){
-            return q2.back();
+        else if(!rev.empty()){
+            while(!rev.empty()){
+                nor.push(rev.top());
+                rev.pop();
+            }
+            return nor.top();
         }
         else{
-            return -1;
+            return nor.top();
         }
     }
     
     bool empty() {
-        return q1.empty() && q2.empty();
+        return rev.empty() && nor.empty();
     }
 };
 
 /**
- * Your MyStack object will be instantiated and called as such:
- * MyStack* obj = new MyStack();
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
  * obj->push(x);
  * int param_2 = obj->pop();
- * int param_3 = obj->top();
+ * int param_3 = obj->peek();
  * bool param_4 = obj->empty();
  */
