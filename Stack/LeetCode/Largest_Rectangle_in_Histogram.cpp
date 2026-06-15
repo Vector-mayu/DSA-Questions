@@ -8,8 +8,9 @@ public:
 
         // lets find NSR
         for(int i=0; i<n; i++){
+            // while will execute itslef untill heights of i is lesser than st.top
             while(!st.empty() && heights[st.top()] > heights[i]){
-                // we will simple push index in here
+                // we will simply push index in here
                 NSR[st.top()] = i;
                 st.pop();
             }
