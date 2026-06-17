@@ -1,65 +1,39 @@
 class MyQueue {
 public:
-    stack<int>rev;
-    stack<int>nor;
+    stack<int>st1; // normal stack where we only push()
+    stack<int>st2; // reverse stack used for pop() and top()
     MyQueue() {
         
     }
     
     void push(int x) {
-        if(rev.empty() && nor.empty()){
-            rev.push(x);
-        }
-        else if(!rev.empty()){
-            rev.push(x);
-        }
-        else{
-            while(!nor.empty()){
-                rev.push(nor.top());
-                nor.pop();
-            }
-            rev.push(x);
-        }
+        st1.push(x);
     }
     
     int pop() {
-        if(rev.empty() && nor.empty()){
-            return -1;
-        }
-        else if(!rev.empty()){
-            while(rev.size() > 1){
-                nor.push(rev.top());
-                rev.pop();
+        if(st2.empty()){
+            while(!st1.empty()){
+                st2.push(st1.top());
+                st1.pop();
             }
-            int target = rev.top();
-            rev.pop();
-            return target;
         }
-        else{
-            int target = nor.top();
-            nor.pop();
-            return target;
-        }
+        int target = st2.top();
+        st2.pop();
+        return target;
     }
     
     int peek() {
-        if(rev.empty() && nor.empty()){
-            return -1;
-        }
-        else if(!rev.empty()){
-            while(!rev.empty()){
-                nor.push(rev.top());
-                rev.pop();
+        if(st2.empty()){
+            while(!st1.empty()){
+                st2.push(st1.top());
+                st1.pop();
             }
-            return nor.top();
         }
-        else{
-            return nor.top();
-        }
+        return st2.top();
     }
     
     bool empty() {
-        return rev.empty() && nor.empty();
+        return st1.empty() && st2.empty();
     }
 };
 
