@@ -1,3 +1,5 @@
+// Time Complexity :-O(n)
+
 class Solution {
 public:
     int sumSubarrayMins(vector<int>& arr) {
