@@ -1,28 +1,28 @@
 class Solution {
-public:
-    bool canRepresentBST(vector<int> &arr) {
-        stack<int> st;
-        int root = INT_MIN;
-
-        for (int i = 0; i < arr.size(); i++) {
-
-            // Current element cannot be smaller than the
-            // minimum allowed value.
-            if (arr[i] < root) {
-                return false;
-            }
-
-            // If we encounter a larger value, we are moving
-            // towards the right subtree. Pop all smaller ancestors.
-            while (!st.empty() && arr[i] > st.top()) {
-                root = st.top();
-                st.pop();
-            }
-
-            // Store the current node.
-            st.push(arr[i]);
+  public:
+  
+    void buildBST(vector<int>&arr, int minVal, int maxVal, int &index, int n){
+        if(index>=n || arr[index] < minVal || arr[index] > maxVal){
+            return;
         }
-
-        return true;
+        
+        // mimic creation of Tree dont actuall build it 
+        int value = arr[index++];
+        
+        // call left and right with their min max ranges
+        buildBST(arr, minVal, value, index, n);
+        buildBST(arr, value, maxVal, index, n);
     }
-};  
+  
+    bool canRepresentBST(vector<int> &arr) {
+        // code here
+        // we will not make tree instead we will just mimic that
+        // if the traversal dosent reach till last element then 
+        // we can say that its answer is false
+        // if we reach the last node successfully that means we can build tree using this preorder
+        int index = 0;
+        buildBST(arr, INT_MIN, INT_MAX, index, arr.size());
+        
+        return index>=arr.size();
+    }
+};
