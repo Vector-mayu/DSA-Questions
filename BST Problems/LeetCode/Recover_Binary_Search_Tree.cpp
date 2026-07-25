@@ -1,4 +1,4 @@
-
+// Approach 1 :- Extra Space
 class Solution {
 public:
 
@@ -50,5 +50,54 @@ public:
         }
 
         replaceBST(root, n1, n2);
+    }
+};
+
+// Optimized Approach :- O(N), O(N)
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    void inorder(TreeNode *root, TreeNode* &first, TreeNode* &second, TreeNode* &prev){
+        if(!root)
+        return;
+        
+        // left side first
+        inorder(root->left, first, second, prev);
+        
+        // check for voilation of node
+        if(prev && (root->val < prev->val)){
+            // first number 
+            TreeNode *curr = root;
+            if(!first){
+                first = prev; // direct assign with address
+            }
+            // always update second
+            second = curr;
+        }
+        // Update Prev mannnnn
+        prev = root;
+        
+        // right side last
+        inorder(root->right, first, second, prev);
+    }
+
+    void recoverTree(TreeNode* root) {
+        TreeNode *first = nullptr, *second = nullptr, *prev = nullptr;
+        
+        inorder(root, first, second, prev);
+        
+        swap(first->val, second->val);
     }
 };
