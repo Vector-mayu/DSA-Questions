@@ -78,7 +78,7 @@ class MaxHeap{
 
         // we only delete top element int the heap
         // if we have more than 1 element
-        // we replace last element with 1st element 
+        // we replace first element with last element
         cout<<arr[0]<<" is Deleted...";
         arr[0] = arr[index-1];
         index--;
