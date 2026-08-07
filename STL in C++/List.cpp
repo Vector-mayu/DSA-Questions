@@ -1,29 +1,24 @@
-
-                        // List In C++ (Doubly LinkedList)
-
 #include<iostream>
-#include<bits/stdc++.h>
+#include<list>
 using namespace std;
-int main()
-{
-    list<int>l;
-    l.push_back(20);
-    l.push_back(30);
-    l.push_back(40);
-    l.push_back(50);
-    l.push_back(60);
+
+int main(){
+    list<int>l1;
     
-    // Printing Values start to End 
-    for(auto it = l.begin(); it!= l.end(); it++)
-    {
-        cout<<*it<<" ";
+    l1.push_back(21);
+    l1.push_back(12);
+    l1.push_back(57);
+    l1.push_back(75);
+    l1.push_back(14);
+    
+    for(auto x: l1){
+        cout<<x<<" ";
     }
     
-    // Printing value In Reverse Order
-    for(auto it = l.rbegin(); it!= l.rend(); it++)
-    {
+    cout<<endl;
+    
+    // lets use iterator now
+    for(auto it = l1.begin(); it != l1.end(); it++){
         cout<<*it<<" ";
     }
 }
-
-    
