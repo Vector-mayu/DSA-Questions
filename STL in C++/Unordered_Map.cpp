@@ -23,9 +23,9 @@ int main()
 	// Delete any pair(ERASE)
 	m.erase(80);
 
-	for(auto i = m.begin(); i!= m.end(); i++)
+	for(auto x = m.begin(); x!= m.end(); x++)
 	{
-		cout<<i->first<<" "<<i->second<<endl;
+		cout<<x->first<<" "<<x->second<<endl;
 	}
 
 }
