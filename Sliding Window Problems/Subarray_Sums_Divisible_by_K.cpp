@@ -35,3 +35,25 @@ public:
 };
 
 // Optimized Approach
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int prefixSum = 0;
+        int result = 0;
+
+        unordered_map<int, int>count;
+        count[0] = 1;
+
+        int rem;
+        for(int x : nums){
+            prefixSum += x;
+
+            rem = ((prefixSum % k) + k)%k;
+            result += count[rem];
+
+            count[rem]++;
+        }
+
+        return result;
+    }
+};
