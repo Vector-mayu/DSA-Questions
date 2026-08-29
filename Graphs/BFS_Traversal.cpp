@@ -6,29 +6,29 @@ class Solution {
     vector<int> bfs(vector<vector<int>> &adj) {
         // code here
         int v = adj.size();
+
+        // create queue and visited array
         queue<int>q;
-        vector<bool>Visited(v, 0);
-        vector<int>ans;
-        
-        //Push 1st Element ans mark visited as 1
+        vector<bool>visited(v, 0);
         q.push(0);
-        Visited[0] = 1;
-        int node;
-        
+        visited[0] = 1;
+
+        vector<int>ans;
+
         while(!q.empty()){
-            node = q.front();
+            int node = q.front();
+            ans.push_back(node);
             q.pop();
-            ans.push_back(node); // update final answer
-            
-            // Check Current element Neighbour Nodes and push them into Queue
-            for(int j=0; j<adj[node].size(); j++){
-                if(!Visited[adj[node][j]]){
-                    Visited[adj[node][j]] = 1;
-                    q.push(adj[node][j]);
+
+            // traverse whole array ie all neighbours
+            for(int neighbour : adj[node]){
+                if(!visited[neighbour]){
+                    visited[neighbour] = 1;
+                    q.push(neighbour);
                 }
             }
         }
-        
+
         return ans;
     }
 };
